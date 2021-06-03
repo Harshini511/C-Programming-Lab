@@ -1,0 +1,280 @@
+  
+   Harshini S-185001058
+/* 1  )   required functions such as
+strlen(str), isUpper (ch), toLower (ch), toUpper (ch) without using library functions  */
+ #include<stdio.h>
+ int stringlen(char str[])
+ {
+	int l=0;
+  	for(int i=0;i<100;i++)
+  	{
+    		if(str[i]!='\0')
+      			l=l+1;
+    		else
+      			return l;
+  	}
+ 	return l;
+ }
+ int uppercheck(char str[])
+ {
+	int m;
+  	for(int i=0;i<100;i++)
+    	{
+      		if(str[i]!='\0')
+      		{
+        		if(str[i]<91)
+          			m=1;
+        		else
+          		{
+           	 		m=0;
+            			return m;
+          		}
+      		}
+    	}
+  	return m;
+ }
+ int convert_to_lower(char str[])
+ {
+  	for(int i=0;i<100;i++)
+  	{
+    		if(str[i]!='\0')
+    		{
+      			if(str[i]>64 && str[i]<95)
+        		str[i]=str[i]+32;
+    		}
+    		else
+      		{
+        		printf("\nthe string converted to lower case is %s ",str);
+        		break;
+        
+        
+      		}
+  	}
+ }
+ int convert_to_upper(char str[])
+ {
+  	for(int i=0;i<100;i++)
+  	{
+    		if(str[i]!='\0')
+    		{
+      			if(str[i]>96 &&str[i]<123)
+        		str[i]=str[i]-32;
+    		}
+    		else
+     		{
+			 printf("\n the string converted to upper case is %s",str);
+     			break;
+     		}
+ 	}
+ }
+ int stringcopy(char dest[],char sour[],int n)
+ {
+  	for(int i=0;i<n;i++)
+    		dest[i]=sour[i];
+  	return dest[n];
+	}
+ int strch(char str[],char a)
+ {
+  	for(int i=0;i<=stringlen(str);i++)
+  	{
+    		if(str[i]==a)
+      		return i;
+  	}
+ }
+ int string_comp(char str1[],char str2[])
+ {
+  	int m;
+  	for(int i=0;i<=stringlen(str1);i++)
+    	{
+      		if(str1[i]==str2[i])
+        		m=1;
+      		else
+      		{
+        		m=0;
+        		return m;
+      		}
+    	}
+  	return m;
+ }
+ char str_cat(char str1[],char str2[])
+ {
+  	int l;
+  	l=stringlen(str1);
+  	for(int i=0;i<=stringlen(str2);i++)
+    		str1[l+i]=str2[i];
+  	return str1;
+ }
+ void main()
+ {
+  int len;
+  char str[100];
+  printf("\nEnter a string for length to be found  ");
+  scanf("%s",&str);
+  len=stringlen(str);
+  printf("\n the length of given string is %d",len);
+  printf("\n enter a string to convert to upper case ");
+  scanf("%s",&str);
+  convert_to_upper(str);
+  printf("\n enter a string to convert to lower case ");
+  scanf("%s",&str);
+  convert_to_lower(str);
+ 
+  }
+
+
+/* Output
+
+
+ Enter a string for length to be found  harshu
+
+ the length of given string is 6
+ enter a string to convert to upper case harshu
+
+ the string converted to upper case is HARSHU
+ enter a string to convert to lower case HARSHU
+
+the string converted to lower case is harshu
+*/
+
+
+
+
+
+/*  2) program to search the last occurrence of a substring in a given string. */
+ #include<stdio.h>
+ void main()
+ {
+  int l,lsub,m=1;
+  printf("enter the length of string ");
+  scanf("%d",&l);
+  char str[l];
+  printf("enter the string ");
+  scanf("%s",&str);
+  printf("enter length of substring ");
+  scanf("%d",&lsub);
+  char substr[lsub];
+  printf("enter the substring ");
+  scanf("%s",substr);
+  while(l)
+  {
+    for(int i=0;i<lsub;i++)
+    {
+      if(str[l-1-i]==substr[lsub-i-1])
+       m=0;
+      else
+       {
+          m=1;
+          l--;
+        }
+    }
+    if(m==0)
+    {
+      printf("\nthe occurrence is %d",l-lsub+1);
+      l=0;
+    }
+    else
+      l--;
+  }
+ }
+
+
+/* Output
+
+
+enter the length of string 8
+enter the string harshini
+enter length of substring 2
+enter the substring sh
+
+the occurrence is 4
+*/
+
+
+
+/*  3  )Write a program which replaces a substring with another in a given line of text.   */
+ #include<stdio.h>
+ void main()
+ {
+  int l,lsub,m=1;
+  printf("enter the length of string ");
+  scanf("%d",&l);
+  char str[l];
+  printf("enter the string ");
+  scanf("%s",&str);
+  printf("enter length of substring ");
+  scanf("%d",&lsub);
+  char substr[lsub],replace[lsub];
+  printf("enter the substring ");
+  scanf("%s",substr);
+  printf("enter replace string");
+  scanf("%s",&replace);
+
+  while(l)
+  {
+    for(int i=0;i<lsub;i++)
+    {
+      if(str[l-1-i]==substr[lsub-i-1])
+       m=0;
+      else
+       {
+          m=1;
+          l--;
+        }
+    }
+    if(m==0)
+    {
+      for(int i=0;i<lsub;i++)
+        str[l-lsub+i]=replace[i];
+      break;
+    }
+    else
+      l--;
+  }
+  printf(" the string is %s",str);
+ }
+
+/* Output
+
+
+
+enter thelength of string 8
+enter the string Harshini
+enter length of substring 2
+enter the substring sh
+enter replace stringab
+ the string is Harabini
+
+*/
+
+
+
+
+/* 4 )   program to reverse a string without using the library function. */ 
+ #include<stdio.h>
+ void main()
+ {
+  int l;
+  char t[1];
+  printf("enter length of string  ");
+  scanf("%d",&l);
+  char str[l];
+  printf("enter a string  ");
+  scanf("%s",&str);
+  for(int i=0;i<l/2;i++)
+  {
+    t[0]=str[i];
+    str[i]=str[l-i-1];
+    str[l-i-1]=t[0];
+
+  }
+  printf("the reversed string is %s",str);
+ }
+
+/* Output
+
+
+enter length of string  8
+enter a string  Harshini
+the reversed string is inihsraH
+
+*/
