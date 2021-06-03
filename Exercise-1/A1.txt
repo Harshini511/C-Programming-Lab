@@ -1,0 +1,478 @@
+Harshini S-185001058
+// 1.To check whether a given number is odd or even
+
+	#include<stdio.h>
+	void main()
+	{
+	 int num,d;
+	 printf("Enter Num ");
+	 scanf("%d",&num);
+	 d=num%2;
+	 if(d==0)
+		printf("even");
+	 else 
+		printf("odd");
+	 
+	}
+  /*Output:-
+	Enter Num 5
+	odd
+*/
+
+
+ //2.To convert temperature in celsius to kelvin and fahrenheit	
+
+	#include<stdio.h>
+	void main()
+	{
+
+	 float cels,fahr,kel;
+	 printf("enter temperature in celsius");
+	 scanf("%f",&cels);
+	 fahr=(9.0/5.0)*cels+32;
+	 kel=273+cels;
+	 printf("temp in fahrenheit %f \n",fahr);
+	 printf("temp in kelvin  %f",kel);
+	}
+  /* Output:-
+	enter temperature in celsius45
+	temp in fahrenheit 113.000000
+	temp in kelvin  318.000000
+  */
+
+
+ //3.To check whether a number is odd or even and set a flag and display it.
+
+	#include<stdio.h>
+	void main()
+	 {
+	  int num,flag=0;
+	  printf("Enter num ");
+	  scanf("%d",&num);
+	  if(num%2==0)
+	 	{
+		 flag=0;	
+		 printf("Even\n");
+		 printf("Flag  %d\n",flag);
+	 	}
+	  else
+	  {
+		flag=1;
+		printf("Odd\n");
+	 	printf("Flag  %d\n",flag);
+	  }
+	  
+ 	 }
+   /* Output:-
+	 Enter num 4
+	 Even
+	 Flag  0
+ */
+
+//4.Find net salary of an employee by getting the basic pay.
+	#include<stdio.h>
+	void main()
+	{
+	 float bp,da,pf,gp,np,hra=0,cca=0,ded,ins;
+	 char city,design;
+ 	 printf("Enter BP  ");
+	 scanf("%f",&bp);
+	 da=0.88*bp;
+	 hra=0.08*bp;
+	 cca=1000;
+	 pf=0.1*bp;
+	 ins=2000;
+	 gp=bp+da+hra+cca;
+	 ded=ins+pf;
+	 np=gp-ded;
+	 printf("Net Salary is %f\n",np);
+	}
+   /* Output:-
+	Enter BP  5000
+	Net Salary is 8300.000000
+*/
+
+
+
+ //5. Modify 4 to set hra based on city and cca based on designation.
+
+	#include<stdio.h>
+	void main()
+	{
+	 float bp,da,pf,gp,np,hra=0,cca=0,ded,ins;
+	 char city,design;
+ 	 printf("Enter BP  ");
+	 scanf("%f",&bp);
+ 	 printf("Enter City  ");
+	 scanf(" %c",&city);
+	 printf("Enter Design  ");
+ 	 scanf(" %c",&design);
+	 switch(city)
+	{
+		case 'M':hra=0.10*bp;
+			break;
+		case 'C':hra=0.08*bp;
+			break;
+		case 'T':hra=0.05*bp;
+			break;
+		default :printf("Invalid Input");
+			break;
+	}
+	switch(design)
+	{
+		case 'W':cca=1000;
+			break;
+		case 'E':cca=2000;
+			break;
+		case 'M':cca=5000;
+			break;
+		default :printf("Invalid Input");
+			break;
+	}
+	da=0.88*bp;
+	pf=0.1*bp;
+	ins=2000;
+	gp=bp+da+hra+cca;
+	ded=ins+pf;
+	np=gp-ded;
+	printf("Net Salary is %f\n",np);
+	}
+   
+  /* Output:-
+ 	Enter BP  50000
+	Enter City  C
+	Enter Design  M
+	Net Salary is 96000.000000	
+   */
+
+// 6. Print an egg timer.
+
+	#include<stdio.h>
+	int main()
+	{
+	 int n;
+	 printf("Enter N between 3 and 10 ");
+	 scanf("%d",&n);
+	 if(n<0)
+	 printf("enter a valid number\n");
+	 for(int i=n;i>0;i--)
+	 {
+		for(int k=0;k<n-i;k++)
+			printf(" ");
+		for(int j=1;j<i+1;j++)
+			printf("*_");
+  		printf("\n");
+	 }
+	 for(int i=2;i<n+1;i++)
+	 {
+		for(int k=0;k<n-i;k++)
+			printf(" ");
+		for(int j=1;j<i+1;j++)
+			printf("*_");	
+   		printf("\n");
+	 }
+	}
+
+ /*  Output:-
+*_*_*_*_*_*_
+ *_*_*_*_*_
+  *_*_*_*_
+   *_*_*_
+    *_*_
+     *_
+    *_*_
+   *_*_*_
+  *_*_*_*_
+ *_*_*_*_*_
+*_*_*_*_*_*_
+
+*/
+
+
+
+
+
+// 7 version1-Compute sum of n integers.
+
+ 	#include<stdio.h>
+	void main()
+	{
+  	 int n,num,sum=0;
+  	 printf("enter the no of terms");
+  	 scanf("%d",&n);
+  	 for(int i=1;i<=n;i++)
+  	 {
+    		printf("enter a number");
+    		scanf("%d",&num);
+    		sum=sum+num;
+  	 }
+	 printf("the sum is %d",sum);
+	}
+   
+ /* Output:-
+	
+	enter the no of terms5
+	enter a number5
+	enter a number7
+	enter a number45
+	enter a number7
+	enter a number3
+	the sum is 67
+	
+*/
+
+
+ //7 version2-Compute sum until -999 is given
+
+	#include <stdio.h>
+	void main()
+	{
+  	 int sum=0,num;
+  	 do
+  	 {
+    		printf("enter a number");
+    		scanf("%d",&num);
+    		sum=sum+num;
+  	 }while(num!=-999);
+  	 printf("the sum is %d",sum+999);
+	}
+
+  /* Output:-
+	enter a number6
+	enter a number3
+	enter a number8
+	enter a number-999
+	the sum is 22
+*/
+
+ //7 version3- Compute sum until stop is given.
+
+	#include <stdio.h>
+	void main()
+	{
+  	 int sum=0,num;
+  	 char ch='n';
+  	 while(ch!='y')
+  	 {
+    		printf("enter a number");
+    		scanf("%d",&num);
+    		sum=sum+num;
+    		printf("enter yes(y) to stop");
+    		scanf("%s",&ch);
+  	 }
+  	 printf("the sum is %d",sum);
+	}
+
+  /* Output:-
+	enter a number6
+	enter yes(y) to stop   n
+	enter a number56
+	enter yes(y) to stop   y
+	the sum is 62
+*/
+ //7 version 4-validate n to be a positive number less than 100
+
+	#include <stdio.h>
+	void main()
+	{
+  	 int sum=0,num,n;
+  	 printf("enter no of terms");
+  	 scanf("%d",&n);
+  	 while(n)
+  	 {
+    		printf("enter a number");
+    		scanf("%d",&num);
+    		if(num>0 && num<100)
+    		sum=sum+num;
+    		n--;
+  	 }
+  	 printf("the sum is %d",sum);
+	}
+   
+  /* Output:-
+
+	enter no of terms5
+	enter a number4
+	enter a number6
+	enter a number3
+	enter a number-2
+	enter a number6
+	the sum is 19
+*/
+
+
+ //7 version 5 print error message for invalid input and exit.
+
+
+ 	#include <stdio.h>
+	void main()
+	{
+  	 int sum=0,num,n;
+  	 printf("enter no of terms");
+  	 scanf("%d",&n);
+  	 while(n)
+  	 {
+    		printf("enter a number");
+    		scanf("%d",&num);
+    		if(num>0 && num<100)
+    			sum=sum+num;
+   		 else
+  		{ 
+			printf("enter a number b/w 0 and 100");
+    			break;
+		}
+    		n--;
+  	}
+  	 printf("the sum is %d",sum);
+	}
+
+  /* Output:-
+	enter no of terms5
+	enter a number1
+	enter a number56
+	enter a number43
+	enter a number-2
+	enter a number b/w 0 and 100
+	the sum is 100
+*/
+
+ //7 version 6- Print invalid input and ask for another input.
+
+	#include <stdio.h>
+	void main()
+	{
+  	 int sum=0,num,n;
+  	 printf("enter no of terms");
+  	 scanf("%d",&n);
+  	 while(n)
+  	 {
+    		printf("enter a number");
+    		scanf("%d",&num);
+    		if(num>0 && num<100)
+   			sum=sum+num;
+    		else
+   		{
+			printf("enter a number b/w 0 and 100");
+    			scanf("%d",&num);
+    			sum=sum+num;
+		}
+    	 n--;
+  	 }
+  	 printf("the sum is %d",sum);
+	}
+   
+   /*   Output:-
+
+	enter a number23
+	enter a number5
+	enter a number3
+	enter a number-2
+	enter a number b/w 0 and 100   5
+	enter a number7
+	enter a number3
+	the sum is 46
+*/
+
+ //8. Design a calculator.
+
+	#include<stdio.h>
+	void main()
+	{
+	 float num1,num2,c=0;
+	 int ch,n=1;
+	 printf("1.Add\n2.Subt\n3.Multiplication\n4.Division\n5.Square\n");
+	 printf("Enter Choice\n ");
+	 scanf("%d",&ch);
+ 	 printf("\nEnter Num1  ");
+	 scanf("%f",&num1);
+	 printf("\nEnter Num2  ");
+	 scanf("%f",&num2);
+	 switch(ch)
+	 {
+  		case 1:c=num1+num2;
+			printf("\nAns : %f\n",c);
+			break;
+		case 2:c=num1-num2;
+			printf("Ans : %f\n",c);
+			break;
+		case 3:c=num1*num2;
+			printf("Ans : %f\n",c);
+			break;
+		case 4:c=num1/num2;
+			printf("Ans : %f\n",c);
+			break;
+		case 5:c=num1*num1;
+			printf("Ans : %f\n",c);
+			break;
+		default :printf("Invalid Input");
+			break;
+	 }
+
+	} 
+  
+
+ /* Output:-
+	 1.Add
+	2.Subt
+	3.Multiplication
+	4.Division
+	5.Square
+	Enter Choice
+ 	3
+
+	Enter Num1  4
+
+	Enter Num2  5
+	Ans : 20.000000
+	
+*/
+
+
+ //9. Check if a number has three consecutive 5's
+
+	#include<stdio.h>
+	void main()
+	{
+	 int num,c=0,cons=0;
+	 printf("Enter Num : ");
+	 scanf("%d",&num);
+	 while(num>0)
+	{
+		if(num%10==5)
+		c+=1;
+	 else
+		c=0;
+	 if(c==3)
+	{	
+		cons=1;
+		break;
+	}
+	 num=num/10;
+	}
+	if(cons==1)
+		printf("YES\n");
+	else
+		printf("NO\n");
+
+	}
+
+ /*  Output:-
+
+	Enter Num : 654555
+	YES
+*/
+
+ //10. Implement 1 without a condition.
+	#include<stdio.h>
+	void main()
+	{
+	 int n;
+	 printf("Enter Num : ");
+	 scanf("%d",&n);
+	 ((n%2)&&printf("Odd\n"))||printf("Even\n");
+	}
+
+ /*  Output:-
+	 Enter Num : 5
+	 Odd
+*/
