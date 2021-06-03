@@ -1,0 +1,269 @@
+Harshini.S-185001058
+/* 1. searches a given word in a line of text and returns the frequency count*/
+#include <stdio.h>
+#include <string.h>
+#include<stdlib.h>
+void check(char *str,char *substr)
+{
+  char *temp;
+  temp=(char *) malloc(50*sizeof(char));
+  int count=0,freq=0;
+  for(int i=0;i<strlen(str);i++)
+  {
+    if((*(str+i)!=' ') && (*(str+i)!='\0'))
+       {
+           *(temp+count++)=*(str+i);
+       }
+    else
+       {    *(temp+count)='\0';
+            if(strcmp(temp,substr)==0)
+                  freq++;
+            count=0;
+       }
+      
+  }
+  printf("the occurrence is %d",freq);
+
+}
+int main()
+{
+  char *str,*substr;
+  str=(char *) malloc(100*sizeof(char));
+  substr=(char *) malloc(50*sizeof(char));
+  printf("enter the string ");
+  scanf("%[^\n]",str);
+  printf("enter substring ");
+  scanf("%s",substr);
+  check(str,substr);
+  return 0;
+}
+
+
+/* Output:-
+enter the string hii nice to meet you to
+enter substring to
+the occurrence is 2
+*/
+
+
+/* 2.parse the text to separate the tokens */
+#include <stdio.h>
+#include <string.h>
+#include<stdlib.h>
+int main()
+{
+	char str[10][100];
+	int sent=0,i=0,l,token=0,flag=1;
+	char *word;
+  	word=(char*) malloc(50*sizeof(char));
+	printf("enter multiple lines of text \n");
+	while(flag)
+	{
+		scanf(" %[^\n]",str[sent]);
+		l=strlen(str[sent]);
+    while(str[sent][i+1]!=' ')
+    {
+      *(word+i)=str[sent][i];
+      i++;
+    }
+    for(int i=0;i<50;i++)
+    {
+      if(str[sent][i+1]==' ')  
+      {
+        token++;
+      }
+    }
+		if (str[sent][l-3]=='e' && str[sent][l-2]=='n' && str[sent][l-1]=='d')
+		{
+			str[sent][l-4]='\0';
+			flag=0;
+		}
+		sent++;
+	}
+	
+	printf("\nnumber of tokens are %d",token);
+}
+
+ 
+/* Output:-
+hi good morning
+nice to meet you
+see you later end
+number of tokens are 10
+*/
+
+
+
+/*3. each element in the table c is the larger of the corresponding elements in tables a and b */
+#include <stdio.h>
+#include<stdlib.h>
+#define maxr 20
+void readinputa(int *a[maxr],int rows,int cols);
+void readinputb(int *b[maxr],int rows,int cols);
+void compare(int *a[maxr],int *b[maxr],int *c[maxr],int rows,int cols);
+void writeoutput(int *c[maxr],int rows,int cols);
+int main()
+{
+  int nrows,rows,cols;
+  int *a[maxr],*b[maxr],*c[maxr];
+  printf("enter no of rows ");
+  scanf("%d",&rows);
+  printf("enter no of columns ");
+  scanf("%d",&cols);
+  for(nrows=0;nrows<rows;nrows++)
+  {
+    a[nrows]=(int*) malloc(cols*sizeof(int));
+    b[nrows]=(int*) malloc(cols*sizeof(int));
+    c[nrows]=(int*) malloc(cols*sizeof(int));
+  }
+  printf("\nfirst table\n");
+  readinputa(a,rows,cols);
+  printf("\nsecond table\n");
+  readinputb(b,rows,cols);
+  compare(a,b,c,rows,cols);
+  printf("\ncompared table\n");
+  writeoutput(c,rows,cols);
+  return 0;
+}
+void readinputa(int *a[maxr],int m,int n)
+{
+  for(int i=0;i<m;++i)
+  {
+    printf("\nenter data for row %d\n",i+1);
+    for(int j=0;j<n;++j)
+      scanf("%d",(*(a+i)+j));
+  }
+  return;
+}
+void readinputb(int *b[maxr],int m,int n)
+{
+  for(int i=0;i<m;++i)
+  {
+    printf("\nenter data for row %d\n",i+1);
+    for(int j=0;j<n;++j)
+      scanf("%d",(*(b+i)+j));
+  }
+  return;
+}
+void compare(int *a[maxr],int *b[maxr],int *c[maxr],int m,int n)
+{
+  for(int i=0;i<m;++i)
+  {
+    for(int j=0;j<n;++j)
+      {
+        if(*(*(a+i)+j)>*(*(b+i)+j))
+          *(*(c+i)+j)=*(*(a+i)+j);
+        else
+          *(*(c+i)+j)=*(*(b+i)+j);
+      }
+  }
+  return;
+}
+void writeoutput(int *c[maxr],int m,int n)
+{
+  for(int i=0;i<m;++i)
+  {
+    for(int j=0;j<n;++j)
+      printf("\t%d",*(*(c+i)+j));
+    printf("\n");
+  }
+  return;
+}
+
+
+
+/* Output:-
+enter no of rows 3
+enter no of columns 3
+
+first table
+
+enter data for row 1
+1 2 3
+
+enter data for row 2
+4 5 6
+
+enter data for row 3
+7 8 9
+
+second table
+
+enter data for row 1
+2 3 4
+
+enter data for row 2
+5 6 7
+
+enter data for row 3
+8 9 10
+
+compared table
+    2   3   4
+    5   6   7
+    8   9   10
+*/
+
+
+/* 4.Determine the difference between two calculated values.*/
+
+#include <stdio.h>
+void readinput(int *pd,int *pm,int *py);
+void readinput1(int *pd1,int *pm1,int *py1);
+long count(int d,int m,int y);
+int main()
+{
+  int pm,pd,py,diff_days;
+  readinput(&pd,&pm,&py);
+  int m1,d1,y1;
+  readinput1(&d1,&m1,&y1);
+  diff_days=count(d1,m1,y1)-count(pd,pm,py);
+  printf("the difference between days are %d",diff_days);
+  return 0;
+}
+long count(int d,int m,int y)
+{
+  long day;
+  y=y-1900;
+  day=(long) (30.42*(m-1))+d;
+  if(m==2)
+    ++day;
+  if((m>2)&&(m<8))
+    --day;
+  if((y%4==0)&&(m>2))
+    ++day;
+  day=day+y/4*1461;
+  if((y%4)>0)
+    day=day+365*(y%4)+1;
+  if(day>59)
+    --day;
+  return(day);
+
+}
+void readinput(int *pd,int *pm,int *py)
+{
+  printf("enter date 1 ");
+  scanf("%d %d %d",pd,pm,py);
+  return;
+}
+void readinput1(int *d1,int *m1,int *y1)
+{
+  printf("enter date 2 ");
+  scanf("%d %d %d",d1,m1,y1);
+  return;
+}
+
+/*Output:-
+enter date 1 1 5 1990
+enter date 2 1 5 2000
+the difference between days are 3653
+*/
+
+
+
+   
+
+
+
+
+
