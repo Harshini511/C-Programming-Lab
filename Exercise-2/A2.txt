@@ -1,0 +1,227 @@
+Harshini S-185001058
+//1.modify a1(1) to have function checkoddeven and find sum of odd and even nos in input of n nos.
+ 
+#include <stdio.h>
+int checkoddeven(int n)
+	{int flag;
+	if(n%2==0)
+        	flag=1;
+	 else    
+    		flag=0;
+	return flag;}
+
+void main()
+{
+    int loop=0,n,sumeven=0,sumodd=0,flag;
+    while(loop==0)
+        {
+		printf("enter a no");
+       		scanf("%d",&n);
+        	flag=checkoddeven(n);
+        	if(flag==1)
+            	{	printf("the number %d is even\n",n);
+            		sumeven+=n;
+            	}
+        	else
+            	{
+			printf("the number %d is odd\n",n);
+            		sumodd+=n;
+            	}
+        	printf("if you want to continue press 0 else press any other number\n");
+        	scanf("%d",&loop);
+        	if(loop!=0)
+            		break;
+	}
+    printf("sum of even nos are %d\n",sumeven);
+    printf("sum of odd numbers are %d\n",sumodd);}
+
+
+/* 
+	enter a no6
+	the number 6 is even
+	if you want to continue press 0 else press any other number
+	0
+	enter a no2
+	the number 2 is even
+	if you want to continue press 0 else press any other number
+	0
+	enter a no7
+	the number 7 is odd
+	if you want to continue press 0 else press any other number
+	8
+	sum of even nos are 8
+	sum of odd numbers are 7
+*/
+
+
+
+// 2. Write a function reversenum to reverse digits of a number
+#include <stdio.h>
+void reversenum(int *num)
+	{
+	 int rem=*num;
+	 *num=0;
+  	 while(rem>0)
+   	{ 	
+		*num=*num*10+(rem%10);
+		rem=rem/10;
+	}
+
+}
+void main()
+{
+  	int *num,reversednumber;
+  	printf("enter a number\n");
+  	scanf("%d",&num);
+  	reversenum(&num);
+  	printf("the reversed number is %d\n",num);
+	
+}
+
+
+/* Output:-
+
+	enter a number
+	3456
+	the reversed number is 6543
+*/
+
+
+//3. Write function power(x,n) that allows a floating point to be raised to an integer power
+ #include <stdio.h>
+float power(float x,int n)
+{	float y=1;
+    	for(int i=1;i<=n;i++)
+      	y=y*x;
+  	return y;
+
+}
+void main()
+{
+ 	 float num,answer;
+ 	 int p;
+ 	 printf("enter a number\n");
+ 	 scanf("%f",&num);
+ 	 printf("enter a power to be raised\n");
+ 	 scanf("%d",&p);
+ 	 answer=power(num,p);
+ 	 printf("the answer is %f",answer);
+}
+
+/* Output:-
+
+	enter a number
+	4.5
+	enter a power to be raised
+	3
+	the answer is 91.125000
+*/
+
+
+// 4. Product of n floating numbers
+#include<stdio.h>
+float prod(int n)
+	{float num;
+  	if(n==0)
+    	return 1;
+  	else
+    	{printf("enter a number");
+    	scanf("%f",&num);
+    	return num*prod(n-1);
+}}
+void main()
+{
+  int n;
+  float product,answer;
+  printf("enter no of terms");
+  scanf("%d",&n);
+  answer=prod(n);
+  printf("the product of float numbers are %f",answer);
+}
+
+/* Output:-
+	enter no of terms6
+	enter a number1
+	enter a number3.4
+	enter a number5.5
+	enter a number6
+	enter a number7
+	enter a number1.3
+	the product of float numbers are 1021.019958
+*/
+
+
+// 5. recursive function thet prints from n to 0
+#include<stdio.h>
+int countdown(int n)
+{
+  if(n==0)
+    printf("%d\n",n);
+  else
+   { printf("%d\n",n);
+    return countdown(n-1);
+    }
+}
+void main()
+{
+  int n;
+  printf("enter a number for countdown  ");
+  scanf("%d",&n);
+  countdown(n);
+}
+
+
+/* Output:-
+	enter a number for countdown  8
+8
+7
+6
+5
+4
+3
+2
+1
+0
+
+*/
+
+//6 Find rigntmost non zero digit of n!
+#include <stdio.h>
+long factorial(int n)
+{
+  if(n==0)
+    return 1;
+  else
+    return n*factorial(n-1);
+}
+int nonzerodigits(long fact)
+	{
+	 int rem;
+	 while(fact)
+	 {
+  		rem=fact%10;
+  		fact=fact/10;
+  		if(rem!=0)
+    		{
+			printf("non zero digit is %d\n",rem);
+			break;
+		}
+	 }
+	}
+void main()
+{
+  int num;
+  long fact;
+  printf("enter a number to find factorial\n");
+  scanf("%d",&num);
+  fact=factorial(num);
+  nonzerodigits(fact);
+
+}
+
+/* Output:-
+	enter a number to find factorial
+	13
+	non zero digit: 8
+*/
+
