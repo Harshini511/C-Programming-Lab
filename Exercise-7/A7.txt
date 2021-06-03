@@ -1,0 +1,636 @@
+/*1.reading and displaying the contents from a file.  */
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include"input.h"
+int main(int argc, char *argv[])
+{
+    FILE *fptr;
+    char ch;
+    fptr=fopen(argv[1],"w");
+    fprintf(fptr,"Life is beautiful\n");
+    fprintf(fptr,"enjoy it to the core\n");
+    fprintf(fptr,"but do remember your duties\n");
+    fprintf(fptr,"do make it nice and better\n");
+    fprintf(fptr,"live life\n");
+    fclose(fptr);
+    display(argv[1]);
+}
+/* header file
+void display(char file_name[]){
+    char ch;
+    FILE *fptr;    
+    fptr=fopen(file_name,"r");
+    while((ch=fgetc(fptr))!=EOF){
+        printf("%c",ch);
+    }
+    fclose(fptr);
+} 
+*/
+/*output
+C:\Users\Harshini\Desktop\cprog>1file.exe input
+Life is beautiful
+enjoy it to the core
+but do remember your duties
+do make it nice and better
+live life
+*/
+
+/*2.Write the counts in a text file with description. */
+#include<stdio.h>
+#include"input.h"
+
+void main(int argc,char *argv[])
+{
+	int charac=0,words=0,dig=0,lines=0;
+	char ch;
+	FILE *fptr;
+	fptr=fopen(argv[1],"r");
+	while((ch=fgetc(fptr))!=EOF)
+	{
+		if(isalpha(ch))
+            charac++;
+        else if(isdigit(ch))
+            dig++;
+        else if(ch==' ')
+            words++;
+        else if(ch=='\n')
+		{
+            lines++;
+            words++;
+		}
+	}
+	fclose(fptr);
+    fptr=fopen(argv[2],"w");
+    fprintf(fptr,"No of characters are %d\n",charac);
+    fprintf(fptr,"No of digits are %d\n",dig);
+    fprintf(fptr,"No of words are %d\n",words);
+    fprintf(fptr,"No of lines are %d\n",lines);
+    fclose(fptr);
+	display(argv[2]);
+}
+/*output
+C:\Users\Harshini\Desktop\cprog>1file.exe input output
+No of characters are 83
+No of digits are 0
+No of words are 21
+No of lines are 5*/
+
+/*3.Write a function that reads a given text file; 
+searches for vowels and displays the contents in stdout stream 
+after replacing them  with  the character „z?.   */
+#include<stdio.h>
+#include<ctype.h>
+#include"input.h"
+void main(int argc, char *argv[])
+{
+    FILE *fptr;
+    fptr=fopen(argv[1],"r+");
+    char ch;
+    while((ch=fgetc(fptr))!=EOF){
+        switch(ch)
+		{
+            case 'a':
+            case 'e':
+            case 'i':
+            case 'o':
+            case 'u':
+            case 'A':
+            case 'E':
+            case 'I':
+            case 'O':
+            case 'U':fseek(fptr,-1,SEEK_CUR);
+                     fputc('z',fptr);
+                     break;
+        }
+	fseek(fptr,0,SEEK_CUR);
+    }
+    fclose(fptr);
+    display(argv[1]);
+}
+
+/*output
+C:\Users\Harshini\Desktop\cprog>1file.exe input
+Lzfz zs bzzztzfzl
+znjzy zt tz thz czrz
+bzt dz rzmzmbzr yzzr dztzzs
+dz mzkz zt nzcz znd bzttzr
+lzvz lzfz*/
+
+
+/*4. Write a function that takes input text file name, output text file name, 
+middle, and offset as parameters and copy the contents of input file from position middle
+ - offset to position middle + offset into a output text file copy.txt.   
+
+
+#include<stdio.h>
+#include<ctype.h>
+#include"input.h"
+void copyfile(char in[], char out[], int mid, int offset)
+{
+    FILE *fptr,*fptr1;
+    char ch;
+    fptr=fopen(in,"r");
+    fptr1=fopen(out,"w");
+    fseek(fptr,mid,SEEK_SET);
+    int i=0;
+    while(i<offset)
+	{
+        if((ch=fgetc(fptr))!=EOF)
+            fputc(ch,fptr1);
+        else
+            break;
+        i++;
+    }
+    fseek(fptr,mid-offset,SEEK_SET);
+    i=0;    
+    while(i<offset)
+	{
+        if((ch=fgetc(fptr))!=EOF)
+            fputc(ch,fptr1);
+        else
+            break;
+        i++;
+    }
+    fclose(fptr);
+    fclose(fptr1);
+}    
+void main(int argc, char *argv[]){
+    FILE *fptr;
+    fptr=fopen(argv[1],"r");
+    if(fptr==NULL)
+    printf("no such file");
+    char ch;
+    int middle=0,offset;
+    printf("\nEnter offset");
+    scanf("%d",&offset);
+    while((ch=fgetc(fptr))!=EOF)
+	{
+        middle++;
+    }
+    fclose(fptr);
+    copyfile(argv[1],argv[2],middle/2,offset);
+    display(argv[2]);
+}
+/*INPUT file contents
+Lzfz zs bzzztzfzl
+znjzy zt tz thz czrz
+bzt dz rzmzmbzr yzzr dztzzs
+dz mzkz zt nzcz znd bzttzr
+lzvz lzfz
+*/
+
+
+/*OUTPUT
+C:\Users\Harshini\Desktop\cprog>4file.exe input output
+
+Enter offset15
+mbzr yzzr dztzzrz
+bzt dz rzmzm*/
+
+
+/*5. Read the following contents from the console and write it to a file. */
+
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+#include"input.h"
+void change(char file[],char replace[],char with[])
+{
+	FILE *fptr;
+	fptr=fopen(file,"r");
+	char str[300],check[100];
+	int len=strlen(replace),len1=strlen(with),i=0;
+	char ch;
+	while((ch=fgetc(fptr))!=EOF)
+	{
+		if(ch!=replace[0])
+		{
+			str[i]=ch;
+			i++;
+		}
+		else
+		{
+			int pos=ftell(fptr)-1;
+			check[0]=(ch);
+			int j=1;
+			while(j<len){
+				ch=fgetc(fptr);
+				check[j]=(ch);
+				j++;
+			}
+			check[j]='\0';
+			if(strcmp(check,replace)==0){
+				str[i]='\0';
+				strcat(str,with);
+				i+=len1;
+				fseek(fptr,pos+len,SEEK_SET);
+			}
+			else{
+				fseek(fptr,pos,SEEK_SET);
+				ch=fgetc(fptr);
+				str[i]=ch;
+				i++;
+			}
+		fseek(fptr,0,SEEK_CUR);
+		}
+	}
+	str[i]='\0';
+	fclose(fptr);
+	fptr=fopen(file,"w");
+	fprintf(fptr,str);
+	fclose(fptr);
+}	
+void main(int argc, char *argv[]){
+	FILE *fptr;
+	fptr=fopen(argv[1],"w");
+	char replace[100],with[50],str[300],ch;
+	printf("Enter text for file");
+	scanf(" %[^\n]s",str);
+	fprintf(fptr,str);
+	fclose(fptr);
+	printf("\nEnter word to be replaced  ");
+	scanf(" %[^\n]s",replace);
+	printf("\nEnter word to replace with ");
+	scanf(" %[^\n]s",with);
+	change(argv[1],replace,with);
+	display(argv[1]);
+}
+
+/*output
+Enter text for fileThis is ssn college of engineering at Chennai. Chennai is otherwise called as singara Chennai
+
+Enter word to be replaced  Chennai
+
+Enter word to replace with Tamil Nadu
+This is ssn college of engineering at Tamil Nadu. Tamil Nadu is otherwise called as singara Tamil Nadu
+*/
+
+
+/*6. Create a telephone directory and perform the following operations: insert, 
+ update, delete, search and append telephone details of an individual into the telephone directory. 
+ Use a structure to represent the telephone record and have necessary 
+attributes such as name, address, phonenumber*/
+
+#include<stdio.h>
+#include<string.h>
+
+struct tele_details
+{
+char name[100];
+char address[100];
+long int phonenum;
+	int deleted;
+}; 
+void insert (char fname[],struct tele_details entry)
+{
+	FILE *fptr;
+	fptr=fopen(fname,"a");
+	entry.deleted=0;
+	fwrite(&entry,sizeof(entry),1,fptr);
+	fclose(fptr);
+}
+void update(char fname[],struct tele_details exist,struct tele_details updated,char ch)
+{
+	FILE *fptr;
+	fptr=fopen(fname,"r+");
+	fseek(fptr,0,SEEK_SET);
+	struct tele_details entry;
+	int flag=0,size=sizeof(entry);
+	size*=-1;
+	while(fread(&entry,sizeof(entry),1,fptr)>0)
+	{
+		if(entry.deleted==0)
+		{
+			switch(ch)
+			{
+				case 'n':
+				case 'N':if(strcmp(exist.name,entry.name)==0){
+							flag=1;
+							fseek(fptr,size,SEEK_CUR);
+							strcpy(entry.name,updated.name);
+							fwrite(&entry,sizeof(entry),1,fptr);	
+						}
+						break;
+				case 'a':
+				case 'A':if(strcmp(exist.address,entry.address)==0){
+							flag=1;
+							fseek(fptr,size,SEEK_CUR);
+							strcpy(entry.address,updated.address);
+							fwrite(&entry,sizeof(entry),1,fptr);	
+						}
+						 break;
+				case 't':
+				case 'T': if(exist.phonenum==entry.phonenum){
+							flag=1;
+							fseek(fptr,size,SEEK_CUR);
+							entry.phonenum=updated.phonenum;
+							fwrite(&entry,sizeof(entry),1,fptr);	
+						}
+						break;
+			}
+		}
+		fseek(fptr,0,SEEK_CUR);
+		if(flag==1)
+			break;
+	}
+	if(flag==0)
+		printf("\nEntry not found.");
+	fclose(fptr);
+}
+void delete(char fname[],struct tele_details entry)
+{
+	FILE *fptr;
+	fptr=fopen(fname,"r+");
+	fseek(fptr,0,SEEK_SET);
+	struct tele_details entry1,entry2;;
+	int flag=0,size=sizeof(entry1);
+	size*=-1;
+	while(fread(&entry1,sizeof(entry1),1,fptr)>0)
+	{
+		if(entry.deleted==0){
+			if((entry.phonenum==entry1.phonenum)&&(strcmp(entry.address,entry1.address)==0)
+			&&(strcmp(entry.name,entry1.name)==0))
+			{
+				flag=1;
+				entry1.deleted=1;
+				fseek(fptr,size,SEEK_CUR);
+				fwrite(&entry1,sizeof(entry1),1,fptr);
+			}
+			fseek(fptr,0,SEEK_CUR);
+			if(flag==1)
+				break;
+		}
+	}
+	if(flag==0)
+		printf("\nEntry not found.");
+	fclose(fptr);
+}
+void search(char fname[],struct tele_details data,char ch)
+{
+	FILE *fptr;
+	fptr=fopen(fname,"r");
+	struct tele_details entry;
+	int flag=0;
+	while(fread(&entry,sizeof(entry),1,fptr)>0)
+	{
+		if(entry.deleted==0)
+		{
+			switch(ch)
+			{
+				case 'n':
+				case 'N':if(strcmp(data.name,entry.name)==0)
+				{
+							flag=1;
+							printf("\nResults of search:\nName:%s\nAddress:%s\nTelephone No.:%ld",entry.name,entry.address,entry.phonenum);	
+						}
+						break;
+				case 'a':
+				case 'A':if(strcmp(data.address,entry.address)==0)
+				{
+							flag=1;
+							printf("\nResults of search:\nName:%s\nAddress:%s\nTelephone No.:%ld",entry.name,entry.address,entry.phonenum);		
+						}
+						 break;
+				case 't':
+				case 'T': if(data.phonenum==entry.phonenum)
+				{
+							flag=1;
+							printf("\nResults of search:\nName:%s\nAddress:%s\nTelephone No.:%ld",entry.name,entry.address,entry.phonenum);		
+						}
+						break;
+			}
+		}
+		if(flag==1)
+			break;		
+	}	
+	if(flag==0)
+		printf("\nRecord not found.");
+	fclose(fptr);
+}	
+void print(char fname[])
+{
+	FILE *fptr;
+	fptr=fopen(fname,"r");
+	struct tele_details entry;
+	int i=0;
+	while(fread(&entry,sizeof(entry),1,fptr)>0)
+	{
+		if(entry.deleted==0)
+		{
+			i++;
+			printf("\nRecord %d:\nName:%s\nAddress:%s\nTelephone No.:%ld",i,entry.name,entry.address,entry.phonenum);	
+			i++;		
+		}
+	}
+	if(i==0)
+		printf("\nDirectory is empty.");
+	fclose(fptr);
+}
+void main(int argc, char *argv[])
+{
+	struct tele_details entry,exist,updated;
+	
+	int choice;
+	char ch;
+	do{
+		printf("\nEnter your choice:\n1.Insert one entry\n2.Update an entry\n3.Delete an entry\n
+		4.Search for an entry\n5.Print telephone directory\n6.Exit\n");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: printf("\nEnter the details of the entry:\nName:");
+					scanf("%s",entry.name);
+					printf("\nAddress:");
+					scanf(" %[^\n]s",entry.address);
+					printf("\nTelephone No.:");
+					scanf("%ld",&entry.phonenum);
+					insert(argv[1],entry);
+					break;
+			case 2: printf("\nEnter attribute to be changed:\nn - name\na - address\nt - telephone no.");
+					scanf(" %c",&ch);
+					switch(ch){
+						case 'n':
+						case 'N':printf("\nEnter name to be changed:");
+								 scanf(" %s",exist.name);
+								 printf("\nEnter updated name:");
+								 scanf(" %s",updated.name);
+								 update(argv[1],exist,updated,ch);
+								 break;
+						case 'a':
+						case 'A':printf("\nEnter address to be changed:");
+								 scanf(" %[^\n]s",exist.address);
+								 printf("\nEnter updated address:");
+								 scanf(" %[^\n]s",updated.address);
+								 update(argv[1],exist,updated,ch);
+								 break;
+						case 't':
+						case 'T':printf("\nEnter telephone no. to be changed:");
+								 scanf("%ld",&exist.phonenum);
+								 printf("\nEnter updated telephone no.:");
+								 scanf("%ld",&updated.phonenum);
+								 update(argv[1],exist,updated,ch);
+								 break;
+					}
+					break;
+			case 3:printf("\nEnter the details of the entry to be deleted:\nName:");
+					scanf(" %s",entry.name);
+					printf("\nAddress:");
+					scanf(" %[^\n]s",entry.address);
+					printf("\nTelephone No.:");
+					scanf("%ld",&entry.phonenum);
+					delete(argv[1],entry);
+					break;
+			case 4: printf("Enter attribute to search by:\nn - name\na - address\nt - telephone no.");
+					scanf(" %c",&ch);
+					switch(ch)
+					{
+						case 'n':
+						case 'N':printf("\nEnter name to be sarched:");
+								 scanf(" %s",exist.name);
+								 search(argv[1],exist,ch);
+								 break;
+						case 'a':
+						case 'A':printf("\nEnter address to be searched:");
+								 scanf(" %[^\n]s",exist.address);
+								 search(argv[1],exist,ch);
+								 break;
+						case 't':
+						case 'T':printf("\nEnter telephone no. to be searched:");
+								 scanf("%ld",&exist.phonenum);
+								 search(argv[1],exist,ch);
+								 break;
+					}
+					break;
+			case 5: print(argv[1]);
+					break;
+		}
+	}while(choice!=6);
+}
+
+
+
+/* output
+C:\Users\Harshini\Desktop\cprog>4file.exe teleoutput
+
+Enter your choice:
+1.Insert one entry
+2.Update an entry
+3.Delete an entry
+4.Search for an entry
+5.Print telephone directory
+6.Exit
+1
+
+Enter the details of the entry:
+Name:harshu
+
+Address:eb colony adambakkam
+
+Telephone No.:1234567891
+
+Enter your choice:
+1.Insert one entry
+2.Update an entry
+3.Delete an entry
+4.Search for an entry
+5.Print telephone directory
+6.Exit
+1
+
+Enter the details of the entry:
+Name:sam
+
+Address:anna nagar chennai
+
+Telephone No.:2343454567
+
+Enter your choice:
+1.Insert one entry
+2.Update an entry
+3.Delete an entry
+4.Search for an entry
+5.Print telephone directory
+6.Exit
+1
+
+Enter the details of the entry:
+Name:sameera
+
+Address:tansi nagar valechery
+
+Telephone No.:5675675567
+
+Enter your choice:
+1.Insert one entry
+2.Update an entry
+3.Delete an entry
+4.Search for an entry
+5.Print telephone directory
+6.Exit
+2
+
+Enter attribute to be changed:
+n - name
+a - address
+t - telephone no.n
+
+Enter name to be changed:sam
+
+Enter updated name:sami
+
+Enter your choice:
+1.Insert one entry
+2.Update an entry
+3.Delete an entry
+4.Search for an entry
+5.Print telephone directory
+6.Exit4
+Enter attribut to search by:
+n - name
+a - address
+t - telephone no.n
+
+Enter name to be sarched:sami
+
+Results of search:
+Name:sami
+Address:anna nagar chennai
+Telephone No.:-2343454567
+Enter your choice:
+1.Insert one entry
+2.Update an entry
+3.Delete an entry
+4.Search for an entry
+5.Print telephone directory
+6.Exit
+5
+
+Entry 1:
+Name:harshu
+Address:eb colony adambakkam
+Telephone No.:1234567891
+Entry 2:
+Name:sami
+Address:anna nagar chennai
+Telephone No.:-2343454567
+Entry 3:
+Name:sameera
+Address:tansi nagar valechery
+Telephone No.:5675675567
+Enter your choice:
+1.Insert one entry
+2.Update an entry
+3.Delete an entry
+4.Search for an entry
+5.Print telephone directory
+6.Exit
+6
+
+C:\Users\Harshini\Desktop\cprog>
+*/
+
+
+
+
+
